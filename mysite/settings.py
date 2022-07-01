@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yu@rqoizf3+!k%v#4y)3tz)ug7v6*vvn)l&rj*v*iogd#+u+pm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'https://kakedomi.herokuapp.com']
 
 
 # Application definition
