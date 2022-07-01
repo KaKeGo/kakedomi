@@ -7,7 +7,7 @@ from .models import User
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm password',widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -21,7 +21,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super().save(commit=True)
+        user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
@@ -32,7 +32,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'password']
 
     def clean_password(self):
         return self.initial['password']
