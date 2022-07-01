@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yu@rqoizf3+!k%v#4y)3tz)ug7v6*vvn)l&rj*v*iogd#+u+pm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', 'https://kakedomi.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
