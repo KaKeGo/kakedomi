@@ -4,7 +4,6 @@ from .views import (
     todo_list_view,
     todo_create_view,
     todo_delete_view,
-    todo_update_view,
 )
 
 app_name = 'accounts'
