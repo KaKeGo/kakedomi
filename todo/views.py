@@ -24,3 +24,13 @@ def todo_create_view(request, *args, **kwargs):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response({}, status=400)
+
+@api_view(['DELETE', 'POST'])
+@permission_classes([IsAdminUser])
+def todo_delete_view(request, todo_id, *args, **kwargs):
+    qs = ToDo.objects.filter(id=todo_id)
+    if not qs.exists():
+        return Response({}, status=404)
+    obj = qs.first()
+    obj.delete()
+    return Response({'message': 'ToDo was removed'}, status=200)
