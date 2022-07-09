@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #My apps
     'home',
     'accounts',
+    'todo',
 
     #Third apps
     'corsheaders',
