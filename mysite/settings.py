@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
 }
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
