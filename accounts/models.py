@@ -35,6 +35,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=40, unique=True)
     email = models.EmailField(max_length=40, unique=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    regiment = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -53,3 +54,49 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='user/avatar', blank=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
+    bio = models.TextField(blank=True)
+    friends = models.ManyToManyField('Friend', related_name='my_friends')
+    slug = models.SlugField(unique=True, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username} {self.user.id}'
+
+    def get_profile_absolute_url(self):
+        return reverse('accounts:profile', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(str(self.user.username) + str(self.user.id))
+        super(Profile, self).save(*args, **kwargs)
+
+class Friend(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.profile.user.username}'
+
+class RegimentBody(models.Model):
+    body = models.CharField(max_length=150)
+
+    def __str__(self):
+        return f'{self.body}'
+
+class Regiment(models.Model):
+    title = models.CharField(max_length=20, unique=True)
+    reg_body = models.ManyToManyField('RegimentBody')
+    slug = models.SlugField(unique=True, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    def get_regiment_absolute_url(self):
+        return reverse('accounts:regiment_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(str(self.title))
+        super(Regiment, self).save(*args, **kwargs)

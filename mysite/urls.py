@@ -22,6 +22,7 @@ urlpatterns = [
 
     #My urls
     path('', include('home.urls', namespace='home')),
+    path('account/', include('accounts.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:
