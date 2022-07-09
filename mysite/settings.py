@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-yu@rqoizf3+!k%v#4y)3tz)ug7v6*vvn)l&rj*v*iogd#+u+pm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1:8000']
 
 
 # Application definition
@@ -43,8 +42,6 @@ INSTALLED_APPS = [
     'home',
     'accounts',
 
-    #Third apps
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -143,21 +140,5 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
-
-DEFAULT_RENDERER_CLASSES = [
-    'rest_framework.renderers.JSONRenderer',
-]
-
-if DEBUG:
-    DEFAULT_RENDERER_CLASSES += [
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-   ],
-    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
-}
 
 django_heroku.settings(locals())
