@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yu@rqoizf3+!k%v#4y)3tz)ug7v6*vvn)l&rj*v*iogd#+u+pm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kakedomi-backend.herokuapp']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -127,10 +127,9 @@ USE_TZ = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
+    "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://kakedomi-backend.herokuapp.com",
-
 ]
 
 DEFAULT_RENDERER_CLASSES = [
