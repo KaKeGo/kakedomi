@@ -4,6 +4,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
+from rest_framework.generics import UpdateAPIView
 
 from .models import ChangeLog
 from .serializers import (
@@ -31,10 +32,15 @@ def changelog_create_view(request, *args, **kwargs):
 
 @api_view(['DELETE', 'POST'])
 @permission_classes([IsAdminUser])
-def changelog_delete_view(request, changelog_id, *args, **kwargs):
-    qs = ChangeLog.objects.filter(id=changelog_id)
+def changelog_delete_view(request, slug, *args, **kwargs):
+    qs = ChangeLog.objects.filter(slug=slug)
     if not qs.exists():
         return Response({'message': 'Something went wrong'}, status=404)
     obj = qs.first()
     obj.delete()
     return Response({'message': 'Change log was removed'}, status=200)
+
+class ChangeLogUpdateView(UpdateAPIView):
+    queryset = ChangeLog.objects.all()
+    serializer_class = ChangeLogSerializer
+    lookup_field = 'slug'
