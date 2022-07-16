@@ -33,6 +33,16 @@ def contact_create_view(request):
         return Response(serializer.data, status=201)
     return Response({}, status=400)
 
+@api_view(['DELETE', 'GET', 'POST'])
+@permission_classes([IsAdminUser])
+def contact_delete_view(request, slug, *args, **kwargs):
+    qs = Contact.objects.filter(slug=slug)
+    if not qs.exists():
+        return Response({'message': 'Something went wrong'}, status=404)
+    obj = qs.first()
+    obj.delete()
+    return Response({'message': 'Contact content was removed'}, status=200)
+
 @api_view(['GET'])
 def contact_message_view(request):
     qs = ContactMessage.objects.all()
@@ -49,3 +59,13 @@ def contact_create_message_view(request):
                         )
         return Response(serializer.data, status=201)
     return Response({}, status=400)
+
+@api_view(['DELETE', 'GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def contact_message_delete_view(request, slug, *args, **kwargs):
+    qs = ContactMessage.objects.filter(slug=slug)
+    if not qs.exists():
+        return Response({'message': 'Something want wrong'}, status=404)
+    obj = qs.first()
+    obj.delete()
+    return Response({'message': 'Message was removed'}, status=200)

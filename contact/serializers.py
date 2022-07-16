@@ -16,7 +16,7 @@ class ContactCreateSerializer(serializers.ModelSerializer):
 class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
-        fields = ['title', 'body', 'postman', 'slug', 'create_on', 'update_on', 'accepted']
+        fields = ['id', 'title', 'body', 'postman', 'slug', 'create_on', 'update_on', 'accepted']
 
 class ContactMessageCreateSerializer(serializers.ModelSerializer):
     class Meta:
