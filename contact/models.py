@@ -21,7 +21,7 @@ class Contact(models.Model):
 class ContactMessage(models.Model):
     title = models.CharField(max_length=50)
     body = models.TextField()
-    postman = models.OneToOneField(User, on_delete=models.CASCADE)
+    postman = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     create_on = models.DateTimeField(auto_now_add=True)
     update_on = models.DateTimeField(auto_now=True)
@@ -38,5 +38,5 @@ class ContactMessage(models.Model):
         return reverse('contact:contact', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.title + '-' + self.postman.username)
         super(ContactMessage, self).save(*args, **kwargs)
