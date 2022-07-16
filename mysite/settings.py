@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'todo',
     'changelog',
+    'contact',
 
     #Third apps
     'corsheaders',
