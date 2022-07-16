@@ -19,3 +19,9 @@ def contact_view(request):
     qs = Contact.objects.all()
     serializer = ContactSerializer(qs, many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+def contact_message_view(request):
+    qs = ContactMessage.objects.all()
+    serializer = ContactMessageSerializer(qs, many=True)
+    return Response(serializer.data)
