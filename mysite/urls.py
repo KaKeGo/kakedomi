@@ -25,6 +25,7 @@ urlpatterns = [
     path('account/', include('accounts.urls', namespace='accounts')),
     path('todo/', include('todo.urls', namespace='todo')),
     path('changelog/', include('changelog.urls', namespace='changelog')),
+    path('contact/', include('contact.urls', namespace='contact'))
 ]
 
 
