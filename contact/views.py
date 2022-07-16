@@ -4,6 +4,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
+from rest_framework.generics import UpdateAPIView
 
 from .models import Contact, ContactMessage
 from .serializers import (
@@ -43,6 +44,11 @@ def contact_delete_view(request, slug, *args, **kwargs):
     obj.delete()
     return Response({'message': 'Contact content was removed'}, status=200)
 
+class ContactUpdateView(UpdateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    lookup_field = 'slug'
+
 @api_view(['GET'])
 def contact_message_view(request):
     qs = ContactMessage.objects.all()
@@ -69,3 +75,8 @@ def contact_message_delete_view(request, slug, *args, **kwargs):
     obj = qs.first()
     obj.delete()
     return Response({'message': 'Message was removed'}, status=200)
+
+class ContactUpdateMessageView(UpdateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    lookup_field = 'slug'

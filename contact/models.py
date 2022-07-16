@@ -28,6 +28,7 @@ class ContactMessage(models.Model):
     accepted = models.BooleanField(default=False)
 
     class Meta:
+        ordering = ['-create_on']
         verbose_name_plural = 'Contact messages'
         verbose_name = 'Message'
 
