@@ -33,6 +33,22 @@ def category_create_view(request):
         return Response(serializer.data, status=201)
     return Response({}, status=400)
 
+@api_view(['DELETE', 'GET', 'POST'])
+@permission_classes([IsAdminUser])
+def category_delete_view(request, slug, *args, **kwargs):
+    qs = Category.objects.filter(slug=slug)
+    if not qs.exists():
+        return Response({'message': 'Something went wrong'}, status=404)
+    obj = qs.first()
+    obj.delete()
+    return Response({'message': 'Category content was removed'})
+
+class CategoryUpdateView(UpdateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    lookup_field = 'slug'
+    permission_classes = IsAdminUser
+
 @api_view(['GET'])
 def blog_view(request):
     qs = Blog.objects.all()
@@ -49,3 +65,19 @@ def blog_create_view(request):
         )
         return Response(serializer.data, status=201)
     return Response({}, status=400)
+
+@api_view(['DELETE', 'GET', 'POST'])
+@permission_classes([IsAdminUser])
+def blog_delete_view(request, slug, *args, **kwargs):
+    qs = Blog.objects.filter(slug=slug)
+    if not qs.exists():
+        return Response({'message': 'Something went wrong'}, status=404)
+    obj = qs.first()
+    obj.delete()
+    return Response({'message': 'Blog content was removed'}, status=200)
+
+class BlogUpdateView(UpdateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+    lookup_field = 'slug'
+    permission_classes = IsAdminUser
