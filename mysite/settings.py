@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'todo',
     'changelog',
     'contact',
+    'blogs',
 
     #Third apps
     'corsheaders',
@@ -57,7 +58,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddlewar',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
